@@ -11,7 +11,7 @@ class Board extends React.Component {
 		super(props);
 		this.state = {
 			boardStatus: Array(19).fill(Array(19).fill(null)),
-			currentPlayer: 'X'
+			currentPlayerIsBlack: true
 		};
 	}
 	
@@ -21,12 +21,11 @@ class Board extends React.Component {
 			console.log('handleClick: ' + row + ' ' + col);
 			const boardStatusRows = this.state.boardStatus.slice();
 			const boardStatusCols = boardStatusRows[row].slice();
-			boardStatusCols[col] = this.state.currentPlayer;
+			boardStatusCols[col] = this.state.currentPlayerIsBlack ? 'B' : 'W';
 			boardStatusRows[row] = boardStatusCols;
 			this.setState({boardStatus: boardStatusRows});
 			// Change current player
-			let newCurrentPlayer = this.state.currentPlayer === 'X' ? 'O' : 'X';
-			this.setState({currentPlayer: newCurrentPlayer});
+			this.setState({currentPlayerIsBlack: !this.state.currentPlayerIsBlack});
 		}
 	}
 	
@@ -35,7 +34,7 @@ class Board extends React.Component {
 	}
 
 	render() {
-		const status = 'Current player: ' + this.state.currentPlayer;
+		const status = 'Current player: ' + (this.state.currentPlayerIsBlack ? 'B' : 'W');
 
 	    var nbOfRows = 19;
 	    var nbOfColums = 19;
